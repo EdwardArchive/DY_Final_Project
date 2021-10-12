@@ -22,7 +22,7 @@ class MyWindow(QMainWindow, form_class):
         self.open_btn.clicked.connect(self.btn_clicked)
 
     def btn_clicked(self):
-        #QMessageBox.about(self,"message","clicked")
+        QMessageBox.about(self,"message","clicked")
         mydilog = Code_dialog()
         mydilog.exec_()
 
