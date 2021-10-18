@@ -27,7 +27,10 @@ class Code_dialog(QDialog,dig_class):
         self.buttonBox.button(QDialogButtonBox.Save).clicked.connect(self.save_clicked)
 
     def save_clicked(self):
-        arduino.compile(sketch="/home/kbj/Project/test/MyFirstSketch/MyFirstSketch.ino",fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True)
+        mytext = self.codetext.toPlainText()
+        with open('/home/kbj/Project/test/MyFirstSketch/somefile.ino', 'a') as f:
+            f.write(mytext)
+        arduino.compile(sketch="/home/kbj/Project/test/MyFirstSketch/somefile.ino",fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True)
         QMessageBox.about(self,"message","complie done")
         
 
