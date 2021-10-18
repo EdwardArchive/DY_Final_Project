@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 import pyduinocli
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
@@ -28,10 +29,22 @@ class Code_dialog(QDialog,dig_class):
 
     def save_clicked(self):
         mytext = self.codetext.toPlainText()
-        with open('/home/kbj/Project/test/MyFirstSketch/somefile.ino', 'a') as f:
+        with open('/home/kbj/Project/test/somefile/somefile.ino', 'w') as f:
             f.write(mytext)
-        arduino.compile(sketch="/home/kbj/Project/test/MyFirstSketch/somefile.ino",fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True)
-        QMessageBox.about(self,"message","complie done")
+        try:
+            res=dict(arduino.compile(sketch="/home/kbj/Project/test/somefile/somefile.ino",fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True))
+            if json.loads(res['__stdout'])['success'] == False :
+                print(res['__stdout'])
+                print(json.loads(res['__stdout'])['success'])
+                QMessageBox.about(self,"message","complie Fail!")
+                
+            elif json.loads(res['__stdout'])['success'] == True :
+                QMessageBox.about(self,"message","complie done!")
+            else :
+                print(json.loads(res['__stdout'])['success'])
+                QMessageBox.about(self,"message","complie Non")
+        except:
+            QMessageBox.about(self,"message","code error!")
         
 
     def ok_callback(self):

@@ -8,3 +8,5 @@ sudo arduino-cli core install arduino:megaavr
 
 sudo arduino-cli compile -b arduino:avr:uno MyFirstSketch.ino
 sudo arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno MyFirstSketch.ino
+
+sudo putty /dev/ttyACM0 -serial -sercfg 9600,8,n,1,N
