@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
 ## Pyduinocli PATH
-arduino = pyduinocli.Arduino("/home/kbj/local/bin/arduino-cli")
+arduino = pyduinocli.Arduino("/home/kbj/Program/arduino-cli")
 
 ## UI PATH
 print(os.getcwd())
@@ -17,6 +17,9 @@ ui_path2 = os.path.join(pathfile,"test/qt_test1")
 form_class = uic.loadUiType(os.path.join(ui_path2, "ui/main_window.ui"))[0]
 dig_class = uic.loadUiType(os.path.join(ui_path2, "ui/widget.ui"))[0]
 drag_class = uic.loadUiType(os.path.join(ui_path2, "ui/dragdrop.ui"))[0]
+
+##Arduino
+ino_path=os.path.join(pathfile,"test/somefile/somefile.ino")
 
 print(form_class)
 print(drag_class)
@@ -29,10 +32,10 @@ class Code_dialog(QDialog,dig_class):
 
     def save_clicked(self):
         mytext = self.codetext.toPlainText()
-        with open('/home/kbj/Project/test/somefile/somefile.ino', 'w') as f:
+        with open(ino_path, 'w') as f:
             f.write(mytext)
         try:
-            res=dict(arduino.compile(sketch="/home/kbj/Project/test/somefile/somefile.ino",fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True))
+            res=dict(arduino.compile(sketch=ino_path,fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True))
             if json.loads(res['__stdout'])['success'] == False :
                 print(res['__stdout'])
                 print(json.loads(res['__stdout'])['success'])
@@ -43,7 +46,8 @@ class Code_dialog(QDialog,dig_class):
             else :
                 print(json.loads(res['__stdout'])['success'])
                 QMessageBox.about(self,"message","complie Non")
-        except:
+        except Exception as e:
+            print(ino_path,e)
             QMessageBox.about(self,"message","code error!")
         
 
