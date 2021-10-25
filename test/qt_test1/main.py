@@ -29,6 +29,12 @@ class Code_dialog(QDialog,dig_class):
         super().__init__()
         self.setupUi(self)
         self.buttonBox.button(QDialogButtonBox.Save).clicked.connect(self.save_clicked)
+        try :
+            with open(ino_path, 'r') as f:
+                self.codetext.append(f.read())
+        except Exception as e:
+            print(ino_path,e)
+            QMessageBox.about(self,"message","file error!")
 
     def save_clicked(self):
         mytext = self.codetext.toPlainText()
@@ -46,6 +52,7 @@ class Code_dialog(QDialog,dig_class):
             else :
                 print(json.loads(res['__stdout'])['success'])
                 QMessageBox.about(self,"message","complie Non")
+
         except Exception as e:
             print(ino_path,e)
             QMessageBox.about(self,"message","code error!")
@@ -74,6 +81,7 @@ class MyWindow(QMainWindow, form_class):
         self.setupUi(self)
         self.open_btn.clicked.connect(self.btn_clicked)
         self.open_btn2.clicked.connect(self.btn2_clicked)
+        self.serial_btn.clicked.connect(self.serial_clicked)
 
     def btn_clicked(self):
         QMessageBox.about(self,"message","codedialog_open")
@@ -83,6 +91,9 @@ class MyWindow(QMainWindow, form_class):
     def btn2_clicked(self):
         mydilog2 = drag_dialog()
         mydilog2.exec_()
+
+    def serial_clicked(self):
+        os.system('sudo putty /dev/ttyACM0 -serial -sercfg 9600,8,n,1,N')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

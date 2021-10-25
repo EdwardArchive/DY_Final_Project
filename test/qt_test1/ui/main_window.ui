@@ -14,16 +14,23 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>100</y>
-      <width>196</width>
-      <height>27</height>
+      <x>120</x>
+      <y>80</y>
+      <width>110</width>
+      <height>89</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="open_btn2">
+       <property name="text">
+        <string>openDragdrop</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="open_btn">
        <property name="text">
@@ -32,9 +39,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="open_btn2">
+      <widget class="QPushButton" name="serial_btn">
        <property name="text">
-        <string>openDragdrop</string>
+        <string>SerialMoniter</string>
        </property>
       </widget>
      </item>
