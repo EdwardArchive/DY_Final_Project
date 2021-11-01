@@ -13,7 +13,7 @@ pathinfo = PathInfo()
 # ino_path = PathInfo.ino_path
 # arduino = PathInfo.arduino
 
-class CodeDialog(QDialog,pathinfo.dig_class):
+class CodeDialog(QDialog,pathinfo.code_ui):
     
     def __init__(self):
         super().__init__()

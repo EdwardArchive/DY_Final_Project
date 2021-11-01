@@ -10,7 +10,7 @@ from PyQt5 import uic
 
 pathinfo = PathInfo()
 
-class MyWindow(QMainWindow, pathinfo.form_class):
+class MyWindow(QMainWindow, pathinfo.main_ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

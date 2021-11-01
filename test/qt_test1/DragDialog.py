@@ -8,7 +8,7 @@ from PyQt5 import uic
 
 pathinfo = PathInfo()
 
-class DragDialog(QDialog,pathinfo.drag_class):
+class DragDialog(QDialog,pathinfo.sketch_ui):
     
     def __init__(self):
         super().__init__()
