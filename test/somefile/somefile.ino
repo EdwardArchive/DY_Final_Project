@@ -5,11 +5,11 @@ void setup() {
 void loop() {
     Serial.println("ON_test");
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(300);
+    delay(100);
 
     Serial.println("OFF_test");
     digitalWrite(LED_BUILTIN, LOW);
-    delay(300);
+    delay(100);
 }
 
 

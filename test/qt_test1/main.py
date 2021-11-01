@@ -1,81 +1,16 @@
 import sys
 import os
 import json
-import pyduinocli
+from PathInfo import PathInfo
+from CodeDialog import CodeDialog
+from DragDialog import DragDialog
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
-## Pyduinocli PATH
-arduino = pyduinocli.Arduino("/home/kbj/Program/arduino-cli")
+pathinfo = PathInfo()
 
-## UI PATH
-print(os.getcwd())
-pathfile=os.getcwd()
-ui_path = os.path.dirname(os.path.abspath("/home/kbj/Project/test/qt_test1/ui/"))
-ui_path2 = os.path.join(pathfile,"test/qt_test1")
-form_class = uic.loadUiType(os.path.join(ui_path2, "ui/main_window.ui"))[0]
-dig_class = uic.loadUiType(os.path.join(ui_path2, "ui/widget.ui"))[0]
-drag_class = uic.loadUiType(os.path.join(ui_path2, "ui/dragdrop.ui"))[0]
-
-##Arduino
-ino_path=os.path.join(pathfile,"test/somefile/somefile.ino")
-
-print(form_class)
-print(drag_class)
-class Code_dialog(QDialog,dig_class):
-    
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-        self.buttonBox.button(QDialogButtonBox.Save).clicked.connect(self.save_clicked)
-        try :
-            with open(ino_path, 'r') as f:
-                self.codetext.append(f.read())
-        except Exception as e:
-            print(ino_path,e)
-            QMessageBox.about(self,"message","file error!")
-
-    def save_clicked(self):
-        mytext = self.codetext.toPlainText()
-        with open(ino_path, 'w') as f:
-            f.write(mytext)
-        try:
-            res=dict(arduino.compile(sketch=ino_path,fqbn="arduino:avr:uno",port="/dev/ttyACM0",clean=True,verify=True,upload=True))
-            if json.loads(res['__stdout'])['success'] == False :
-                print(res['__stdout'])
-                print(json.loads(res['__stdout'])['success'])
-                QMessageBox.about(self,"message","complie Fail!")
-                
-            elif json.loads(res['__stdout'])['success'] == True :
-                QMessageBox.about(self,"message","complie done!")
-            else :
-                print(json.loads(res['__stdout'])['success'])
-                QMessageBox.about(self,"message","complie Non")
-
-        except Exception as e:
-            print(ino_path,e)
-            QMessageBox.about(self,"message","code error!")
-        
-
-    def ok_callback(self):
-        print("OK")
-        self.close()
-
-    def cancel_callback(self):
-        print("Cancel")
-        self.close()
-
-class drag_dialog(QDialog,drag_class):
-    
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-
-
-
-
-class MyWindow(QMainWindow, form_class):
+class MyWindow(QMainWindow, pathinfo.form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -85,11 +20,11 @@ class MyWindow(QMainWindow, form_class):
 
     def btn_clicked(self):
         QMessageBox.about(self,"message","codedialog_open")
-        mydilog = Code_dialog()
+        mydilog = CodeDialog()
         mydilog.exec_()
 
     def btn2_clicked(self):
-        mydilog2 = drag_dialog()
+        mydilog2 = DragDialog()
         mydilog2.exec_()
 
     def serial_clicked(self):
