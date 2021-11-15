@@ -9,9 +9,6 @@ from PyQt5 import uic
 
 pathinfo = PathInfo()
 
-# dig_class = PathInfo.dig_class
-# ino_path = PathInfo.ino_path
-# arduino = PathInfo.arduino
 
 class CodeDialog(QDialog,pathinfo.code_ui):
     
