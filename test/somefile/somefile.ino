@@ -5,11 +5,15 @@ void setup() {
     Serial.begin(9600);
 }
 void loop() {
-	digitalWrite(LED_BUILTIN, HIGH);
-	digitalWrite(2, LOW);
-	delay(500);
+	for(int i=0; i<5; i++){
+		digitalWrite(LED_BUILTIN, HIGH);
+		delay(250);
+		digitalWrite(LED_BUILTIN, LOW);
+		delay(250);
+		}
 	digitalWrite(2, HIGH);
-	digitalWrite(LED_BUILTIN, LOW);
-	delay(200);
+	delay(1000);
+	digitalWrite(2, LOW);
+	delay(1000);
 
 }

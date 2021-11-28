@@ -17,24 +17,38 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
     def __init__(self):
         super().__init__()
 
-        self.ledon_icon = QIcon("/home/kbj/문서/DY_Final_Project/test/qt_test1/res/PNG/led-off.png")
-        self.ledoff_icon = QIcon("/home/kbj/문서/DY_Final_Project/test/qt_test1/res/PNG/led-on.png")
-        self.digitalon_icon = QIcon("/home/kbj/문서/DY_Final_Project/test/qt_test1/res/PNG/digital-on.png")
-        self.digitaloff_icon = QIcon("/home/kbj/문서/DY_Final_Project/test/qt_test1/res/PNG/digital-off.png")
-        self.sleep_icon = QIcon("./res/PNG/time-to-sleep.png")
+        self.ledon_icon = QIcon(pathinfo.icon_path+ "/PNG/led-on.png")
+        self.ledoff_icon = QIcon(pathinfo.icon_path+"/PNG/led-off.png")
+        self.digitalon_icon = QIcon(pathinfo.icon_path+"/PNG/digital-on.png")
+        self.digitaloff_icon = QIcon(pathinfo.icon_path+"/PNG/digital-off.png")
+        self.sleep_icon = QIcon(pathinfo.icon_path+"/PNG/time-to-sleep.png")
+        self.if_icon = QIcon(pathinfo.icon_path+"/PNG/if.png")
+        self.loop_icon = QIcon(pathinfo.icon_path+"/PNG/loop.png")
+        self.break_icon = QIcon(pathinfo.icon_path+"/PNG/break.png")
+        self.ultrasoundSensor_icon = QIcon(pathinfo.icon_path+"/PNG/ultrasound-sensor.png")
 
         self.ledon_item = QListWidgetItem(self.ledon_icon, "LED_ON")
         self.ledoff_item = QListWidgetItem(self.ledoff_icon, "LED_OFF")
         self.digitalon_item = QListWidgetItem(self.digitalon_icon, "Digital_PIN_ON")
         self.digitaloff_item = QListWidgetItem(self.digitaloff_icon, "Digital_PIN_OFF")
         self.sleep_item = QListWidgetItem(self.sleep_icon, "Sleep")
+        self.if_item = QListWidgetItem(self.if_icon, "if")
+        self.loop_item = QListWidgetItem(self.loop_icon, "loop-start")
+        self.loop_end_item = QListWidgetItem(self.loop_icon, "loop-end")
+        self.break_item = QListWidgetItem(self.break_icon, "break")
+        self.ultrasoundSensor_item = QListWidgetItem(self.ultrasoundSensor_icon, "UltrasoundSensor")
 
         self.icon_dict={
             "LED_ON":self.ledon_icon,
             "LED_OFF":self.ledoff_icon,
             "Sleep":self.sleep_icon,
             "Digital_PIN_ON":self.digitalon_icon,
-            "Digital_PIN_OFF":self.digitaloff_icon
+            "Digital_PIN_OFF":self.digitaloff_icon,
+            "if":self.if_icon,
+            "loop-start":self.loop_icon,
+            "loop-end":self.loop_icon,
+            "break":self.break_icon,
+            "UltrasoundSensor":self.ultrasoundSensor_icon
             }
 
         self.init_ui()
@@ -51,6 +65,11 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.list_example.addItem(self.digitalon_item )
         self.list_example.addItem(self.digitaloff_item )
         self.list_example.addItem(self.sleep_item)
+        self.list_example.addItem(self.loop_item)
+        self.list_example.addItem(self.loop_end_item)
+        self.list_example.addItem(self.if_item)
+        self.list_example.addItem(self.break_item)
+        self.list_example.addItem(self.ultrasoundSensor_item)
         self.list_favorite = QListWidget()
 
         self.list_example.setDragEnabled(True)

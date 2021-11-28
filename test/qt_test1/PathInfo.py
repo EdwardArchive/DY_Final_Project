@@ -10,7 +10,7 @@ class PathInfo :
     main_ui = uic.loadUiType(os.path.join(ui_path2, "ui/main_window.ui"))[0]
     code_ui = uic.loadUiType(os.path.join(ui_path2, "ui/widget.ui"))[0]
     sketch_ui = uic.loadUiType(os.path.join(ui_path2, "ui/dragdrop.ui"))[0]
-
+    icon_path = os.path.dirname(os.path.abspath("/home/kbj/문서/DY_Final_Project/test/qt_test1/res/PNG"))
     ## Pyduinocli PATH
     arduino = pyduinocli.Arduino("/home/kbj/Program/arduino-cli")
 
