@@ -1,19 +1,37 @@
 
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
-    
+    	
+    pinMode(9, OUTPUT);
+    pinMode(8, INPUT);
+            
+
     Serial.begin(9600);
 }
 void loop() {
-	for(int i=0; i<5; i++){
+	
+    long duration, distance;
+    digitalWrite(9, LOW);
+    delayMicroseconds(2);
+    digitalWrite(9, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(9, LOW);
+    duration = pulseIn (8, HIGH); 
+    distance = duration * 17 / 1000; 
+    Serial.println(duration ); 
+    Serial.println("DIstance : ");
+    Serial.print(distance); 
+    Serial.println(" Cm");
+    delay(500); 
+
+            
+	if(distance<20){
 		digitalWrite(LED_BUILTIN, HIGH);
-		delay(250);
-		digitalWrite(LED_BUILTIN, LOW);
-		delay(250);
+		digitalWrite(2, LOW);
 		}
-	digitalWrite(2, HIGH);
-	delay(1000);
-	digitalWrite(2, LOW);
-	delay(1000);
+	if(distance>20){
+		digitalWrite(LED_BUILTIN, LOW);
+		digitalWrite(2, HIGH);
+		}
 
 }

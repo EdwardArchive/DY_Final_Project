@@ -22,7 +22,8 @@ void loop() {{
             "Digital_PIN_OFF":"digitalWrite({option}, LOW);",
             "loop-start":"for(int i=0; i<{option}; i++){{",
             "loop-end":"}",
-            "if":"if({option})",
+            "if":"if({option}){{",
+            "if-end":"}",
             "break":"break;",
             "UltrasoundSensor":"""
     long duration, distance;
@@ -47,7 +48,7 @@ void loop() {{
     pinMode(8, INPUT);
             """
         }
-        self.option_list=['Sleep','Digital_PIN_ON','Digital_PIN_OFF','UltrasoundSensor','loop-start']
+        self.option_list=['Sleep','Digital_PIN_ON','Digital_PIN_OFF','UltrasoundSensor','loop-start','if']
     
     def Converter(self):
         code_text = ""

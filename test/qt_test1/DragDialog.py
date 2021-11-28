@@ -23,6 +23,7 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.digitaloff_icon = QIcon(pathinfo.icon_path+"/PNG/digital-off.png")
         self.sleep_icon = QIcon(pathinfo.icon_path+"/PNG/time-to-sleep.png")
         self.if_icon = QIcon(pathinfo.icon_path+"/PNG/if.png")
+        self.end_icon = QIcon(pathinfo.icon_path+"/PNG/if-end.png")
         self.loop_icon = QIcon(pathinfo.icon_path+"/PNG/loop.png")
         self.break_icon = QIcon(pathinfo.icon_path+"/PNG/break.png")
         self.ultrasoundSensor_icon = QIcon(pathinfo.icon_path+"/PNG/ultrasound-sensor.png")
@@ -33,8 +34,9 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.digitaloff_item = QListWidgetItem(self.digitaloff_icon, "Digital_PIN_OFF")
         self.sleep_item = QListWidgetItem(self.sleep_icon, "Sleep")
         self.if_item = QListWidgetItem(self.if_icon, "if")
+        self.if_end_item = QListWidgetItem(self.end_icon, "if-end")
         self.loop_item = QListWidgetItem(self.loop_icon, "loop-start")
-        self.loop_end_item = QListWidgetItem(self.loop_icon, "loop-end")
+        self.loop_end_item = QListWidgetItem(self.end_icon, "loop-end")
         self.break_item = QListWidgetItem(self.break_icon, "break")
         self.ultrasoundSensor_item = QListWidgetItem(self.ultrasoundSensor_icon, "UltrasoundSensor")
 
@@ -45,8 +47,9 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
             "Digital_PIN_ON":self.digitalon_icon,
             "Digital_PIN_OFF":self.digitaloff_icon,
             "if":self.if_icon,
+            "if-end":self.end_icon,
             "loop-start":self.loop_icon,
-            "loop-end":self.loop_icon,
+            "loop-end":self.end_icon,
             "break":self.break_icon,
             "UltrasoundSensor":self.ultrasoundSensor_icon
             }
@@ -68,6 +71,7 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.list_example.addItem(self.loop_item)
         self.list_example.addItem(self.loop_end_item)
         self.list_example.addItem(self.if_item)
+        self.list_example.addItem(self.if_end_item)
         self.list_example.addItem(self.break_item)
         self.list_example.addItem(self.ultrasoundSensor_item)
         self.list_favorite = QListWidget()
@@ -114,7 +118,11 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
             for item in self.list_favorite.selectedItems():
                 row = self.list_favorite.row(item)
                 self.list_favorite.takeItem(row)
-                item = QListWidgetItem(self.icon_dict[item.text()], item.text()+"|"+text)
+                try:
+                    item = QListWidgetItem(self.icon_dict[item.text()], item.text()+"|"+text)
+                except :
+                    item = QListWidgetItem(self.icon_dict[item.text().split('|')[0]], item.text().split('|')[0]+"|"+text)
+
                 self.list_favorite.insertItem(row,item)
 
     def apply(self):
