@@ -60,4 +60,4 @@ app = QApplication(sys.argv)
 demo = AppDemo()
 demo.show()
 
-sys.exit(app.exec_())       
+sys.exit(app.exec_())     

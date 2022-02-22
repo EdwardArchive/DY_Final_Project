@@ -27,6 +27,8 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.loop_icon = QIcon(pathinfo.icon_path+"/PNG/loop.png")
         self.break_icon = QIcon(pathinfo.icon_path+"/PNG/break.png")
         self.ultrasoundSensor_icon = QIcon(pathinfo.icon_path+"/PNG/ultrasound-sensor.png")
+        self.analogwt_icon = QIcon(pathinfo.icon_path+"/PNG/digital-on.png")
+        self.analogrd_icon = QIcon(pathinfo.icon_path+"/PNG/digital-off.png")
 
         self.ledon_item = QListWidgetItem(self.ledon_icon, "LED_ON")
         self.ledoff_item = QListWidgetItem(self.ledoff_icon, "LED_OFF")
@@ -39,6 +41,8 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.loop_end_item = QListWidgetItem(self.end_icon, "loop-end")
         self.break_item = QListWidgetItem(self.break_icon, "break")
         self.ultrasoundSensor_item = QListWidgetItem(self.ultrasoundSensor_icon, "UltrasoundSensor")
+        self.analogwt_item = QListWidgetItem(self.analogwt_icon, "Analog_PIN_wt")
+        self.analogrd_item = QListWidgetItem(self.analogrd_icon, "Analog_PIN_rd")
 
         self.icon_dict={
             "LED_ON":self.ledon_icon,
@@ -51,7 +55,9 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
             "loop-start":self.loop_icon,
             "loop-end":self.end_icon,
             "break":self.break_icon,
-            "UltrasoundSensor":self.ultrasoundSensor_icon
+            "UltrasoundSensor":self.ultrasoundSensor_icon,
+            "Analog_PIN_wt" : self.analogwt_icon,
+            "Analog_PIN_rd" : self.analogrd_icon,
             }
 
         self.init_ui()
@@ -74,6 +80,8 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
         self.list_example.addItem(self.if_end_item)
         self.list_example.addItem(self.break_item)
         self.list_example.addItem(self.ultrasoundSensor_item)
+        self.list_example.addItem(self.analogwt_item)
+        self.list_example.addItem(self.analogrd_item)
         self.list_favorite = QListWidget()
 
         self.list_example.setDragEnabled(True)

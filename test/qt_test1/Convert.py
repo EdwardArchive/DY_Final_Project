@@ -40,15 +40,19 @@ void loop() {{
     Serial.println(" Cm");
     delay({option}); 
 
-            """
+            """,
+            "Analog_PIN_wt":"analogWrite({PIN_NUM},{Value});",
+            "Analog_PIN_rd":"{Var} = analogRead({PIN_NUM});"
         }
         self.code_setup_dict={
             "UltrasoundSensor":"""
     pinMode(9, OUTPUT);
     pinMode(8, INPUT);
-            """
+            """,
+            "Analog_PIN_wt" : "pinMode({PIN_NUM},OUTPUT);",
+            "Analog_PIN_rd" : "pinMode({PIN_NUM},INPUT);"
         }
-        self.option_list=['Sleep','Digital_PIN_ON','Digital_PIN_OFF','UltrasoundSensor','loop-start','if']
+        self.option_list=['Sleep','Digital_PIN_ON','Digital_PIN_OFF','UltrasoundSensor','loop-start','if','Analog_PIN_wt','Analog_PIN_rd']
     
     def Converter(self):
         code_text = ""
@@ -56,9 +60,20 @@ void loop() {{
         indent_count = 1
         for command in self.codelist :
             if command.split('|')[0] in self.option_list:
-                code_text += "\t"*indent_count+self.codedict[command.split('|')[0]].format(option=command.split('|')[1])+"\n"
                 if command.split('|')[0] == 'UltrasoundSensor':
-                    code_setup+="\t"*indent_count+self.code_setup_dict[command.split('|')[0]]+"\n"
+                    code_setup+="\t"+self.code_setup_dict[command.split('|')[0]]+"\n"
+                    code_text += "\t"*indent_count+self.codedict[command.split('|')[0]].format(option=command.split('|')[1])+"\n"
+
+                elif command.split('|')[0] == 'Analog_PIN_wt':
+                    code_setup+=self.code_setup_dict[command.split('|')[0]].format(PIN_NUM=command.split('|')[1])+"\n"
+                    code_text += "\t"*indent_count+self.codedict[command.split('|')[0]].format(PIN_NUM=command.split('|')[1] , Value=command.split('|')[2])+"\n"
+
+                elif command.split('|')[0] == 'Analog_PIN_rd':
+                    code_setup+=self.code_setup_dict[command.split('|')[0]].format(PIN_NUM=command.split('|')[2])+"\n"
+                    code_text += "\t"*indent_count+self.codedict[command.split('|')[0]].format(Var=command.split('|')[1], PIN_NUM=command.split('|')[2])+"\n"
+
+                else : 
+                    code_text += "\t"*indent_count+self.codedict[command.split('|')[0]].format(option=command.split('|')[1])+"\n"
             else:
                 code_text += "\t"*indent_count+self.codedict[command]+"\n"
 
