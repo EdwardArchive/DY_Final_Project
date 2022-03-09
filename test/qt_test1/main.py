@@ -19,7 +19,6 @@ class MyWindow(QMainWindow, pathinfo.main_ui):
         self.serial_btn.clicked.connect(self.serial_clicked)
 
     def btn_clicked(self):
-        QMessageBox.about(self,"message","codedialog_open")
         mydilog = CodeDialog()
         mydilog.exec_()
 

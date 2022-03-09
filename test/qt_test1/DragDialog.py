@@ -16,7 +16,7 @@ class DragDialog(QDialog,pathinfo.sketch_ui):
     
     def __init__(self):
         super().__init__()
-
+        self.setWindowTitle("Drag＆Drop Dialog")
         self.ledon_icon = QIcon(pathinfo.icon_path+ "/PNG/led-on.png")
         self.ledoff_icon = QIcon(pathinfo.icon_path+"/PNG/led-off.png")
         self.digitalon_icon = QIcon(pathinfo.icon_path+"/PNG/digital-on.png")

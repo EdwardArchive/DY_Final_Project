@@ -15,6 +15,7 @@ class CodeDialog(QDialog,pathinfo.code_ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle("Code Dialog")
         self.buttonBox.button(QDialogButtonBox.Save).clicked.connect(self.save_clicked)
         try :
             with open(pathinfo.ino_path, 'r') as f:
